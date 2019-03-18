@@ -2,7 +2,7 @@ CHANGELOG
 =========
 
 
-0.3.4 (XXX-XX-XX)
+0.4.1 (2019-03-18)
 -----------------
 
-* Signature and behavior of `SignupCode.is_valid` method has been changed
+* Clean release's version after deprecation of aldryn
