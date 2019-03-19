@@ -2,6 +2,12 @@ CHANGELOG
 =========
 
 
+0.4.3 (2019-03-19)
+-----------------
+
+* Fix compatilibity with settings.MIDDLEWARE and settings.MIDDLEWARE_CLASSES
+
+
 0.4.2 (2019-03-18)
 -----------------
 
