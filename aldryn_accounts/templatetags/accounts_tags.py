@@ -4,7 +4,6 @@ from classytags.arguments import Argument
 from django import template
 from ..utils import user_display
 
-
 register = template.Library()
 
 
@@ -27,5 +26,6 @@ class PrettyUsername(Tag):
             context[varname] = result
             return ''
         return result
+
 
 register.tag(PrettyUsername)

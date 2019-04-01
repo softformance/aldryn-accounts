@@ -4,18 +4,14 @@ from __future__ import unicode_literals
 import datetime
 
 from django.conf import settings
-from django.core import mail
 from django.contrib.auth.models import User
+from django.core import mail
 from django.utils import timezone
 
-from aldryn_accounts.models import (
-    SignupCode, SignupCodeResult, EmailAddress, EmailConfirmation,
-    UserSettings,
-)
 from aldryn_accounts.exceptions import (
-    EmailAlreadyVerified, VerificationKeyExpired,
+    VerificationKeyExpired,
 )
-
+from aldryn_accounts.models import (EmailAddress, EmailConfirmation, SignupCode, SignupCodeResult, UserSettings)
 from .base import AllAccountsApphooksTestCase
 
 

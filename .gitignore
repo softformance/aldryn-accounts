@@ -7,3 +7,5 @@
 
 !.gitignore
 /aldryn_accounts.egg-info/
+
+.idea

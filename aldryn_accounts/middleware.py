@@ -1,13 +1,17 @@
 # -*- coding: utf-8 -*-
 from django.utils import timezone
 from django.conf import settings
+try:
+    from django.utils.deprecation import MiddlewareMixin
+except ImportError:
+    MiddlewareMixin = object
 
 from pytz import UnknownTimeZoneError
 
 from .utils import geoip
 
 
-class TimezoneMiddleware(object):
+class TimezoneMiddleware(MiddlewareMixin):
     def process_request(self, request):
         tz = request.session.get('django_timezone')
         if tz:
@@ -19,7 +23,7 @@ class TimezoneMiddleware(object):
                 timezone.activate(tz)
 
 
-class GeoIPMiddleware(object):
+class GeoIPMiddleware(MiddlewareMixin):
     """
     Still experimental
     """

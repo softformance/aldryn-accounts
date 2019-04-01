@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
+import requests
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist
 from django.core.files.base import ContentFile
 from django.core.urlresolvers import reverse
-from django.conf import settings
 from django.shortcuts import redirect
-
-import requests
 from social_core.exceptions import AuthException
 
 from .models import EmailAddress
@@ -32,8 +31,8 @@ def _get_verified_email(email, user=None):
 
 def _is_trusted_email_backend(backend):
     return (
-        backend.name in
-        settings.ALDRYN_ACCOUNTS_SOCIAL_BACKENDS_WITH_TRUSTED_EMAIL
+            backend.name in
+            settings.ALDRYN_ACCOUNTS_SOCIAL_BACKENDS_WITH_TRUSTED_EMAIL
     )
 
 
@@ -83,9 +82,9 @@ def create_user(username, details, backend, user=None, *args, **kwargs):
     is_trusted_email_backend = _is_trusted_email_backend(backend)
 
     connect_accounts = (
-        settings.ALDRYN_ACCOUNTS_SOCIAL_BACKENDS_WITH_TRUSTED_EMAIL and
-        is_trusted_email_backend and
-        verified_email
+            settings.ALDRYN_ACCOUNTS_SOCIAL_BACKENDS_WITH_TRUSTED_EMAIL and
+            is_trusted_email_backend and
+            verified_email
     )
 
     if connect_accounts:

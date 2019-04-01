@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 import django.dispatch
 from django.contrib.auth import user_logged_in
-from django.db.models import signals, ObjectDoesNotExist
-from django.utils.encoding import force_text
-from django.utils import timezone
 from django.contrib.auth.models import User
+from django.db.models import ObjectDoesNotExist, signals
+from django.utils import timezone
+from django.utils.encoding import force_text
 
 from .utils import generate_username
-
 
 user_signed_up = django.dispatch.Signal(providing_args=["user", "form"])
 user_sign_up_attempt = django.dispatch.Signal(providing_args=["username",  "email", "result"])

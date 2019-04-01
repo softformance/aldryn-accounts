@@ -6,12 +6,11 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
-
 from social_django.models import UserSocialAuth
 
 from .admin_forms import UserCreationForm
 from .exceptions import VerificationKeyExpired
-from .models import EmailConfirmation, EmailAddress, UserSettings
+from .models import EmailAddress, EmailConfirmation, UserSettings
 
 
 class EmailInline(admin.TabularInline):
@@ -49,7 +48,7 @@ class AccountsUserAdmin(UserAdmin):
         (None, {
             'classes': ('wide',),
             'fields': ('email', 'password',)}
-        ),
+         ),
         (_('Personal info'), {'fields': ('first_name', 'last_name',)}),
         (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
                                        'groups', 'user_permissions')}),
@@ -64,8 +63,8 @@ class AccountsUserAdmin(UserAdmin):
 
     def social_logins(self, obj):
         return u', '.join([
-              '{} ({})'.format(i.provider, i.uid)
-              for i in obj.social_auth.all()
+            '{} ({})'.format(i.provider, i.uid)
+            for i in obj.social_auth.all()
         ])
 
     def get_readonly_fields(self, request, obj=None):
@@ -88,7 +87,7 @@ class AccountsUserAdmin(UserAdmin):
 
 class EmailConfirmationAdmin(admin.ModelAdmin):
     list_display = ('email', 'user')
-    actions = ('manual_confirmation', )
+    actions = ('manual_confirmation',)
     raw_id_fields = ('user',)
 
     def manual_confirmation(self, request, queryset):
@@ -113,6 +112,7 @@ class UserProxy(User):
         proxy = True
         verbose_name = _('User')
         verbose_name_plural = _('Users')
+
 
 admin.site.register(UserProxy, AccountsUserAdmin)
 admin.site.register(EmailConfirmation, EmailConfirmationAdmin)

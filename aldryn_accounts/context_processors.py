@@ -3,11 +3,10 @@ from collections import OrderedDict
 
 from django.conf import settings
 from django.contrib.auth import get_backends
-
 from social_django.models import UserSocialAuth
 
-from .utils import user_display, get_signup_view, get_login_view
 from .notifications import check_notifications
+from .utils import get_login_view, get_signup_view, user_display
 
 
 def account_info(request):

@@ -4,6 +4,7 @@
 from __future__ import unicode_literals
 
 from distutils.version import LooseVersion
+
 from cms import __version__ as cms_string_version
 
 cms_version = LooseVersion(cms_string_version)
@@ -12,8 +13,8 @@ cms_version = LooseVersion(cms_string_version)
 def noop_gettext(s):
     return s
 
-gettext = noop_gettext
 
+gettext = noop_gettext
 
 HELPER_SETTINGS = {
     # plug urls directly, test_urls includes urls from djangocms-helper
@@ -112,6 +113,7 @@ if cms_version < LooseVersion('3.2.0'):
 def run():
     from djangocms_helper import runner
     runner.cms('aldryn_accounts', extra_args=[])
+
 
 if __name__ == "__main__":
     run()

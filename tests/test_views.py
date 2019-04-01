@@ -2,20 +2,19 @@
 from __future__ import unicode_literals
 
 import datetime
-from django.contrib.auth.models import User
-from django.contrib.auth import SESSION_KEY
-from django.contrib.messages import get_messages
 
+from django.contrib.auth import SESSION_KEY
+from django.contrib.auth.models import User
+from django.contrib.messages import get_messages
 from django.core import mail
-from django.test import  override_settings
 from django.core.urlresolvers import reverse
+from django.test import override_settings
 from django.utils import unittest
 from django.utils.translation import override
 
-from aldryn_accounts.models import SignupCode, EmailConfirmation, EmailAddress
 # use aldryn account patched settings
 from aldryn_accounts.conf import settings
-
+from aldryn_accounts.models import EmailAddress, EmailConfirmation, SignupCode
 from .base import AllAccountsApphooksTestCase
 
 
@@ -40,6 +39,7 @@ class ViewsAssertionsMixin(object):
         messages = [msg.message for msg in storage]
         self.assertIn(text, messages)
 
+
 # session engine is hardcoded in djangocms-helper (atm v0.9.4), so override
 # per test case
 @override_settings(SESSION_ENGINE='django.contrib.sessions.backends.cached_db')
@@ -52,6 +52,7 @@ class SignupViewTestCase(GetViewUrlMixin, AllAccountsApphooksTestCase):
         response = self.client.get(view_url)
         self.assertContains(response, 'New? Register now')
         self.assertRedirects()
+
     @override_settings(ALDRYN_ACCOUNTS_OPEN_SIGNUP=False)
     def test_get_not_logged_in_no_code(self):
         view_url = self.get_view_url()
@@ -678,6 +679,7 @@ class ProfileAssociationsViewTestCase(GetViewUrlMixin,
         response = self._view_get_logged_in()
         self.assertContains(response, 'Connected accounts')
 
+
 @override_settings(SESSION_ENGINE='django.contrib.sessions.backends.cached_db')
 class ProfileEmailListViewTestCase(GetViewUrlMixin,
                                    ProfileViewsCommonMixin,
@@ -815,10 +817,9 @@ class ProfileEmailConfirmationCommonMixin(object):
 
 @override_settings(SESSION_ENGINE='django.contrib.sessions.backends.cached_db')
 class ProfileEmailConfirmationResendViewTestCase(
-        GetViewUrlMixin,
-        ProfileEmailConfirmationCommonMixin,
-        AllAccountsApphooksTestCase):
-
+    GetViewUrlMixin,
+    ProfileEmailConfirmationCommonMixin,
+    AllAccountsApphooksTestCase):
     view_name = 'accounts_email_confirmation_resend'
 
     def setUp(self):
@@ -859,10 +860,9 @@ class ProfileEmailConfirmationResendViewTestCase(
 
 @override_settings(SESSION_ENGINE='django.contrib.sessions.backends.cached_db')
 class ProfileEmailConfirmationCancelViewTestCase(
-        GetViewUrlMixin,
-        ProfileEmailConfirmationCommonMixin,
-        AllAccountsApphooksTestCase):
-
+      GetViewUrlMixin,
+      ProfileEmailConfirmationCommonMixin,
+      AllAccountsApphooksTestCase):
     view_name = 'accounts_email_confirmation_cancel'
 
     def setUp(self):
@@ -932,11 +932,10 @@ class ProfileEmailObjectsSetupMixin(object):
 
 @override_settings(SESSION_ENGINE='django.contrib.sessions.backends.cached_db')
 class ProfileEmailMakePrimaryViewTestCase(
-        GetViewUrlMixin,
-        ProfileEmailConfirmationCommonMixin,
-        ProfileEmailObjectsSetupMixin,
-        AllAccountsApphooksTestCase):
-
+      GetViewUrlMixin,
+      ProfileEmailConfirmationCommonMixin,
+      ProfileEmailObjectsSetupMixin,
+      AllAccountsApphooksTestCase):
     view_name = 'accounts_email_make_primary'
 
     def test_get_not_logged_in(self):
@@ -978,11 +977,10 @@ class ProfileEmailMakePrimaryViewTestCase(
 
 @override_settings(SESSION_ENGINE='django.contrib.sessions.backends.cached_db')
 class ProfileEmailDeleteViewTestCase(
-        GetViewUrlMixin,
-        ProfileEmailConfirmationCommonMixin,
-        ProfileEmailObjectsSetupMixin,
-        AllAccountsApphooksTestCase):
-
+      GetViewUrlMixin,
+      ProfileEmailConfirmationCommonMixin,
+      ProfileEmailObjectsSetupMixin,
+      AllAccountsApphooksTestCase):
     view_name = 'accounts_email_delete'
 
     def test_get_not_logged_in(self):

@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import datetime
 
 
 try:
@@ -14,38 +13,34 @@ except ImportError:
     # Django 1.6
     from django.contrib.sites.models import get_current_site, RequestSite
 
+import class_based_auth_views.views
+from class_based_auth_views.utils import default_redirect
+from dj.chain import chain
 from django import forms
-from django.contrib import messages, auth
-from django.contrib.auth import login
+from django.contrib import auth, messages
+from django.contrib.auth import login, views as auth_views
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core import urlresolvers
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseForbidden, Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
-from django.views.generic import FormView, TemplateView, ListView, DeleteView, UpdateView, View, DetailView
+from django.views.generic import DeleteView, DetailView, FormView, ListView, TemplateView, UpdateView, View
 from django.views.generic.base import TemplateResponseMixin
-from django.contrib.auth import views as auth_views
 
-import class_based_auth_views.views
 from aldryn_accounts.exceptions import EmailAlreadyVerified, VerificationKeyExpired
-from class_based_auth_views.utils import default_redirect
-from dj.chain import chain
-
 from . import utils
 from .conf import settings
 from .context_processors import empty_login_and_signup_forms
-from .forms import (
-    EmailAuthenticationForm, ChangePasswordForm, CreatePasswordForm,
-    SignupForm, SignupEmailResendConfirmationForm, PasswordRecoveryResetForm,
-    UserSettingsForm, ProfileEmailForm)
-from .models import EmailAddress, EmailConfirmation, SignupCode, UserSettings
-from .signals import user_sign_up_attempt, user_signed_up, password_changed
-from .view_mixins import OnlyOwnedObjectsMixin
 from .emails import EmailSender
+from .forms import (ChangePasswordForm, CreatePasswordForm, EmailAuthenticationForm, PasswordRecoveryResetForm,
+                    ProfileEmailForm, SignupEmailResendConfirmationForm, SignupForm, UserSettingsForm)
+from .models import EmailAddress, EmailConfirmation, SignupCode, UserSettings
+from .signals import password_changed, user_sign_up_attempt, user_signed_up
+from .view_mixins import OnlyOwnedObjectsMixin
 
 
 class SignupView(FormView):

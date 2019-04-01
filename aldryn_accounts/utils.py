@@ -1,16 +1,14 @@
 # -*- coding: utf-8 -*-
 import hashlib
+import importlib
 import logging
 import os
 import uuid
-import importlib
 
+import pygeoip
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.utils.crypto import random
-
-import pygeoip
-
 
 logger = logging.getLogger('aldryn_accounts')
 

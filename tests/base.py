@@ -5,16 +5,15 @@ import random
 import string
 import sys
 
-from django.conf import settings
-from django.core.urlresolvers import clear_url_caches
-from django.core.cache import cache
-
 from cms import api
 from cms.apphook_pool import apphook_pool
 from cms.appresolver import clear_app_resolvers
 from cms.exceptions import AppAlreadyRegistered
-from cms.utils import get_cms_setting
 from cms.test_utils.testcases import CMSTestCase
+from cms.utils import get_cms_setting
+from django.conf import settings
+from django.core.cache import cache
+from django.core.urlresolvers import clear_url_caches
 
 from aldryn_accounts import cms_app
 

@@ -2,7 +2,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import MultipleObjectsReturned
-from django.utils.translation import ugettext, ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _
 
 from .models import EmailAddress
 
@@ -17,7 +17,7 @@ class UserCreationForm(forms.ModelForm):
     }
     email = forms.EmailField()
     password = forms.CharField(label=_("Password"),
-        widget=forms.PasswordInput)
+                               widget=forms.PasswordInput)
 
     class Meta:
         model = User
@@ -37,7 +37,6 @@ class UserCreationForm(forms.ModelForm):
         except MultipleObjectsReturned:
             raise forms.ValidationError(self.error_messages['duplicate_email'])
         return email
-
 
     def save(self, commit=True):
         user = super(UserCreationForm, self).save(commit=False)

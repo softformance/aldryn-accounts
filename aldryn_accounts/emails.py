@@ -1,18 +1,17 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import emailit.api
 from django.contrib.sites.models import Site
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMultiAlternatives
 from django.core.urlresolvers import reverse
+from django.template import loader
 from django.utils import timezone
 from django.utils.encoding import force_text
 from django.utils.http import urlencode
 from django.utils.module_loading import import_string
 from django.utils.translation import get_language, override
-from django.template import loader
-
-import emailit.api
 
 from .conf import settings
 from .utils import user_display

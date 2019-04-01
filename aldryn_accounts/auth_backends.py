@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import django
 from django.contrib.auth.backends import ModelBackend
 
 from .models import EmailAddress
@@ -6,13 +7,22 @@ from .utils import get_most_qualified_user_for_email_and_password
 
 
 class EmailBackend(ModelBackend):
-    def authenticate(self, username=None, password=None):
-        """
-        tries verified email addresses, the email field on user objects and unconfirmed email addresses.
-        username is not checked, since the default model backend already does that.
-        """
-        username = username.strip()
-        return get_most_qualified_user_for_email_and_password(username, password)
+    if django.VERSION < (1, 11):
+        def authenticate(self, username=None, password=None, **kwargs):
+            """
+            tries verified email addresses, the email field on user objects and unconfirmed email addresses.
+            username is not checked, since the default model backend already does that.
+            """
+            username = username.strip()
+            return get_most_qualified_user_for_email_and_password(username, password)
+    else:
+        def authenticate(self, request, username=None, password=None, **kwargs):
+            """
+            tries verified email addresses, the email field on user objects and unconfirmed email addresses.
+            username is not checked, since the default model backend already does that.
+            """
+            username = username.strip()
+            return get_most_qualified_user_for_email_and_password(username, password)
 
 
 class PermissionBackend(object):

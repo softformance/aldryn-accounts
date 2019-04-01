@@ -270,7 +270,7 @@ class EmailConfirmation(models.Model):
             return email_address
         else:
             msg = _("Verification key {key} for {email} has been expired").format(
-                    key=self.key, email=self.email)
+                key=self.key, email=self.email)
             raise VerificationKeyExpired(msg)
 
     def send(self, **kwargs):

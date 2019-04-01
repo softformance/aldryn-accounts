@@ -1,17 +1,16 @@
 # -*- coding: utf-8 -*-
 from django import forms
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm as DjangoPasswordResetForm
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
-from django.conf import settings
-
 from six.moves.urllib.parse import urlencode
 
-from .models import EmailAddress, EmailConfirmation, UserSettings
 from .emails import EmailSender
+from .models import EmailAddress, EmailConfirmation, UserSettings
 
 
 def get_user_email(user, form_email):
