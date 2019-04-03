@@ -87,6 +87,7 @@ class AccountsUserAdmin(UserAdmin):
 
 class EmailConfirmationAdmin(admin.ModelAdmin):
     list_display = ('email', 'user')
+    search_fields = ('email',)
     actions = ('manual_confirmation',)
     raw_id_fields = ('user',)
 

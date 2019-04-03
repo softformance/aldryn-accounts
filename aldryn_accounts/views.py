@@ -28,8 +28,7 @@ from django.http import Http404, HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
-from django.views.generic import DeleteView, DetailView, FormView, ListView, TemplateView, UpdateView, View
-from django.views.generic.base import TemplateResponseMixin
+from django.views.generic import DeleteView, DetailView, FormView, ListView, TemplateView, UpdateView
 
 from aldryn_accounts.exceptions import EmailAlreadyVerified, VerificationKeyExpired
 from . import utils
@@ -339,7 +338,7 @@ def password_reset_complete(request, *args, **kwargs):
     return auth_views.password_reset_complete(request, *args, **kwargs)
 
 
-class ConfirmEmailView(TemplateResponseMixin, View):
+class ConfirmEmailView(TemplateView):
     # TODO: add edge case handling (see divio/djangocms-account#39 )
     template_name = "aldryn_accounts/email_confirm.html"
     messages = {
