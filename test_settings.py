@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
+
 
 from distutils.version import LooseVersion
 
@@ -45,7 +45,7 @@ HELPER_SETTINGS = {
             {
                 'public': True,
                 'code': 'en',
-                'fallbacks': [u'de'],
+                'fallbacks': ['de'],
                 'hide_untranslated': False,
                 'name': gettext('en'),
                 'redirect_on_fallback': True,
@@ -53,7 +53,7 @@ HELPER_SETTINGS = {
             {
                 'public': True,
                 'code': 'de',
-                'fallbacks': [u'en'],
+                'fallbacks': ['en'],
                 'hide_untranslated': False,
                 'name': gettext('de'),
                 'redirect_on_fallback': True,

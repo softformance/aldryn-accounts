@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+
 
 import datetime
 import operator
+from functools import reduce
 
 try:
     from urllib.parse import urlencode
@@ -132,7 +133,7 @@ class EmailAddressManager(models.Manager):
         is_first_email = user and email and not self.filter(user=user).exists()
         email_address, created = self.get_or_create(user=user, email=email, defaults=kwargs)
         if not created:
-            for key, value in kwargs.items():
+            for key, value in list(kwargs.items()):
                 setattr(email_address, key, value)
             email_address.save()
         if is_first_email or make_primary:

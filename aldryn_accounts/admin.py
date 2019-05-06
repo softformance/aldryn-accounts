@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
+
 
 from django.conf import settings
 from django.contrib import admin
@@ -62,7 +62,7 @@ class AccountsUserAdmin(UserAdmin):
         super(AccountsUserAdmin, self).__init__(model, admin_site)
 
     def social_logins(self, obj):
-        return u', '.join([
+        return ', '.join([
             '{} ({})'.format(i.provider, i.uid)
             for i in obj.social_auth.all()
         ])

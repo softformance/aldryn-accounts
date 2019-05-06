@@ -32,7 +32,7 @@ def social_auth_info(request):
     for key in all_keys:
         keys.append(key)
     # create accounts dictionary
-    accounts = OrderedDict(zip(keys, [None] * len(keys)))
+    accounts = OrderedDict(list(zip(keys, [None] * len(keys))))
     user = request.user
     if hasattr(user, 'is_authenticated') and user.is_authenticated():
         for assoc in UserSocialAuth.get_social_auth_for_user(user):

@@ -15,16 +15,16 @@ logger = logging.getLogger('aldryn_accounts')
 
 def user_display(user, fallback_to_username=settings.ALDRYN_ACCOUNTS_USER_DISPLAY_FALLBACK_TO_USERNAME, fallback_to_pk=settings.ALDRYN_ACCOUNTS_USER_DISPLAY_FALLBACK_TO_PK):
     if user.is_anonymous():
-        return u'Anonymous user'
+        return 'Anonymous user'
     if user.email:
         return user.email
     elif user.first_name or user.last_name:
-        return (u"%s %s" % (user.first_name, user.last_name)).strip()
+        return ("%s %s" % (user.first_name, user.last_name)).strip()
     elif fallback_to_username and user.username:
         return user.username
     elif fallback_to_pk and user.pk:
-        return unicode(user.pk)
-    return u''
+        return str(user.pk)
+    return ''
 
 
 def random_token(extra=None, hash_func=hashlib.sha256):
@@ -61,9 +61,9 @@ def geoip(ip):
     if not data:  # empty dict
         return dict()
     if data.get('city') and data.get('country'):
-        data['pretty_name'] = u"%s, %s" % (data.get('city'), data.get('country_name'))
+        data['pretty_name'] = "%s, %s" % (data.get('city'), data.get('country_name'))
     elif data.get('country'):
-        data['pretty_name'] = u"%s" % data.get('country_name')
+        data['pretty_name'] = "%s" % data.get('country_name')
     return data
 
 

@@ -176,7 +176,7 @@ class PasswordRecoveryResetForm(DjangoPasswordResetForm):
 
             return False
 
-        return filter(is_active_user, users)
+        return list(filter(is_active_user, users))
 
     def send_mail(self, subject_template_name, email_template_name,
                   context, from_email, to_email, html_email_template_name=None):

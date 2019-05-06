@@ -427,7 +427,7 @@ class ChangePasswordBaseView(FormView):
     messages = {
         "password_changed": {
             "level": messages.SUCCESS,
-            "text": _(u"Password successfully changed.")
+            "text": _("Password successfully changed.")
         }
     }
 
