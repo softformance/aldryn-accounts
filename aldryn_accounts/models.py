@@ -42,7 +42,7 @@ class SignupCode(models.Model):
     code = models.CharField(max_length=64, unique=True)
     max_uses = models.PositiveIntegerField(default=0)
     expires_at = models.DateTimeField(null=True, blank=True)
-    invited_by = models.ForeignKey(User, null=True, blank=True)
+    invited_by = models.ForeignKey(User, null=True, blank=True, on_delete=models.deletion.CASCADE)
     email = models.EmailField(blank=True)
     notes = models.TextField(blank=True)
     sent_at = models.DateTimeField(null=True, blank=True)
@@ -118,8 +118,8 @@ class SignupCode(models.Model):
 
 class SignupCodeResult(models.Model):
 
-    signup_code = models.ForeignKey(SignupCode)
-    user = models.ForeignKey(User)
+    signup_code = models.ForeignKey(SignupCode, on_delete=models.deletion.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.deletion.CASCADE)
     timestamp = models.DateTimeField(default=timezone.now)
 
     def save(self, **kwargs):
@@ -165,7 +165,7 @@ class EmailAddress(models.Model):
     All verified email addresses. If it's not verified it should not be here.
     """
     is_verified = True
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, on_delete=models.deletion.CASCADE)
     email = models.EmailField(unique=True)
     verified_at = models.DateTimeField(null=True, blank=True)
     verification_method = models.CharField(max_length=255, blank=True, default='unknown')
@@ -228,7 +228,7 @@ class EmailConfirmationManager(models.Manager):
 
 @python_2_unicode_compatible
 class EmailConfirmation(models.Model):
-    user = models.ForeignKey(User, related_name="email_verifications")
+    user = models.ForeignKey(User, related_name="email_verifications", on_delete=models.deletion.CASCADE)
     email = models.EmailField()
     is_primary = models.BooleanField(default=True)
     # TODO: rename this to EmailVerification
@@ -285,7 +285,7 @@ class EmailConfirmation(models.Model):
 
 @python_2_unicode_compatible
 class UserSettings(models.Model):
-    user = AutoOneToOneField(User, related_name='settings', unique=True, db_index=True)
+    user = AutoOneToOneField(User, related_name='settings', unique=True, db_index=True, on_delete=models.deletion.CASCADE)
     birth_date = models.DateField(_('birth date'), blank=True, null=True)
     timezone = timezone_field.TimeZoneField(blank=True, null=True, default=None, verbose_name=_('time zone'))
 
