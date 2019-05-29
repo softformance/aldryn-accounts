@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+from .compatibility import is_authenticated, is_anonymous
 
 try:
     from urllib.parse import urlencode, unquote
@@ -69,7 +69,7 @@ class SignupView(FormView):
         super(SignupView, self).__init__(*args, **kwargs)
 
     def get(self, *args, **kwargs):
-        if self.request.user.is_authenticated():
+        if is_authenticated(self.request.user):
             return redirect(default_redirect(self.request, settings.ALDRYN_ACCOUNTS_LOGIN_REDIRECT_URL))
         if not self.is_open():
             return self.closed()
@@ -432,7 +432,7 @@ class ChangePasswordBaseView(FormView):
     }
 
     def post(self, *args, **kwargs):
-        if not self.request.user.is_authenticated():
+        if not is_authenticated(self.request.user):
             return HttpResponseForbidden()
         return super(ChangePasswordBaseView, self).post(*args, **kwargs)
 
@@ -499,7 +499,7 @@ class ChangePasswordView(ChangePasswordBaseView):
             request, *args, **kwargs)
 
     def get(self, *args, **kwargs):
-        if not self.request.user.is_authenticated():
+        if not is_authenticated(self.request.user):
             return redirect("accounts_password_reset_recover")
         if not self.request.user.has_usable_password():
             return redirect("accounts_create_password")
@@ -653,7 +653,7 @@ class UserSettingsView(UpdateView):
         return super(UserSettingsView, self).dispatch(request, *args, **kwargs)
 
     def get_object(self, queryset=None):
-        if self.request.user.is_anonymous():
+        if is_anonymous(self.request.user):
             raise PermissionDenied()
         if queryset is None:
             queryset = self.get_queryset()
