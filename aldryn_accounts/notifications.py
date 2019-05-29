@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 from django.conf import settings
-from django.core.urlresolvers import NoReverseMatch
+try:
+    from django.urls import NoReverseMatch
+except ImportError:
+    # Django <= 1.10
+    from django.core.urlresolvers import NoReverseMatch
 from django.template.loader import render_to_string
 
 from .compatibility import is_anonymous
