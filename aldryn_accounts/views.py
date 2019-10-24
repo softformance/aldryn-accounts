@@ -504,7 +504,7 @@ class CreatePasswordView(ChangePasswordBaseView):
     def dispatch(self, request, *args, **kwargs):
         if request.user.has_usable_password():
             # user who already have a password must use ChangePasswordView
-            return redirect(urlresolvers.reverse('aldryn_accounts:accounts_change_password'))
+            return redirect(reverse('aldryn_accounts:accounts_change_password'))
         else:
             return super(CreatePasswordView, self).dispatch(request, *args, **kwargs)
 
